@@ -172,6 +172,23 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         Eigen::Vector3d tmp_T = estimator.Ps[WINDOW_SIZE];
         printf("time: %f, t: %f %f %f q: %f %f %f %f \n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),
                                                           tmp_Q.w(), tmp_Q.x(), tmp_Q.y(), tmp_Q.z());
+
+        // write result to file
+        tmp_Q = Quaterniond(estimator.ric[0]);
+        ofstream foutCalib("/home/cs4li/Dev/dump/calib.csv", ios::app);
+        foutCalib.setf(ios::fixed, ios::floatfield);
+        foutCalib.precision(0);
+        foutCalib << header.stamp.toSec() * 1e9 << ",";
+        foutCalib.precision(5);
+        foutCalib << estimator.tic[0].x() << ","
+              << estimator.tic[0].y() << ","
+              << estimator.tic[0].z() << ","
+
+              << tmp_Q.w() << ","
+              << tmp_Q.x() << ","
+              << tmp_Q.y() << ","
+              << tmp_Q.z() << endl;
+        foutCalib.close();
     }
 }
 

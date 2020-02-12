@@ -8,7 +8,7 @@ num_of_cam: 1
 imu_topic: "/imu0"
 image0_topic: "/cam0/image_raw"
 image1_topic: "/cam1/image_raw"
-output_path: "~/output/"
+output_path: "/home/cs4li/Dev/dump/"
 
 cam0_calib: "cam0_mei.yaml"
 cam1_calib: "cam1_mei.yaml"
@@ -17,9 +17,10 @@ image_height: 480
    
 
 # Extrinsic parameter between IMU and Camera.
-estimate_extrinsic: 0   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
+estimate_extrinsic: 1   # 0  Have an accurate extrinsic parameters. We will trust the following imu^R_cam, imu^T_cam, don't change it.
                         # 1  Have an initial guess about extrinsic parameters. We will optimize around your initial guess.
 
+# original
 body_T_cam0: !!opencv-matrix
    rows: 4
    cols: 4
@@ -28,6 +29,61 @@ body_T_cam0: !!opencv-matrix
            0.999557249008, 0.0149672133247, 0.025715529948,  -0.064676986768,
            -0.0257744366974, 0.00375618835797, 0.999660727178, 0.00981073058949,
            0, 0, 0, 1]
+
+# # perturbed 3cm 6 degrees
+# body_T_cam0: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: d
+#    data: [-0.08675722797136598,-0.9900111952848967,0.11113512768124023,-0.0018390724124266629,
+#                 0.9927987151122725,-0.0951689481482182,-0.07275701051742992,-0.04048780445029983,
+#                 0.0826068681514935,0.1040226154177849,0.9911384367564098,0.010580565613672226,
+#                 0.0,0.0,0.0,1.0]
+
+# # perturbed 6cm 12 degrees
+# body_T_cam0: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: d
+#    data: [-0.17472150147318663,-0.9583906219755738,0.22574280194877866,-0.011271044045985187,
+#           0.9642798088420184,-0.21291291699895187,-0.15758343832473898,-0.03836361158787778,
+#           0.19909004792356821,0.19014601095919573,0.9613571902961803,-0.052937745233853924,
+#           0.0,0.0,0.0,1.0]
+
+# # perturbed 15cm 30 degrees
+# body_T_cam0: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: d
+#    data: [-0.33059426508118683,-0.7467397512352718,0.5771370511587058,0.09075300697631934,
+#            0.7608805966498116,-0.572677820859224,-0.30512428801616803,0.025377717152329185,
+#            0.5583620237237753,0.33826004407916593,0.7575037907776822,-0.1134300813969123,
+#            0.0,0.0,0.0,1.0]
+
+# # perturbed 30cm 60 degrees
+# body_T_cam0: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: d
+#    data: [-0.1693130193100513,-0.17143727696282082,0.970537151045616,0.05114021698386769,
+#         0.19110452861383728,-0.9717753826788242,-0.13831726125887978,0.24875177616212008,
+#         0.966856845988614,0.16205513162631519,0.19729666413348376,-0.15265209347312247,
+#         0.0,0.0,0.0,1.0]
+
+# # perturbed 60cm 120 degrees
+# body_T_cam0: !!opencv-matrix
+#    rows: 4
+#    cols: 4
+#    dt: d
+#    data: [0.8843085614940298,0.2708868176350457,0.3802876544139124,0.16205803075926475,
+#          -0.27383238206759597,-0.3588024034466445,0.8923433542152122,-0.2084100270088039,
+#          0.3781721758659662,-0.8932419422037312,-0.24311445470890455,0.46904358126443074,
+#          0.0,0.0,0.0,1.0]
+
+
+
+           
+
 
 #Multiple thread support
 multiple_thread: 1
@@ -58,5 +114,5 @@ td: 0.0                             # initial value of time offset. unit: s. rea
 
 #loop closure parameters
 load_previous_pose_graph: 0        # load and reuse previous pose graph; load from 'pose_graph_save_path'
-pose_graph_save_path: "~/output/pose_graph/" # save and load path
+pose_graph_save_path: "/home/cs4li/Dev/dump/" # save and load path
 save_image: 1                   # save image in pose graph for visualization prupose; you can close this function by setting 0 
